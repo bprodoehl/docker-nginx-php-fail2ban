@@ -6,7 +6,7 @@ ENV HOME /root
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
 
-ONBUILD ADD . /app
+ONBUILD ADD html /usr/share/nginx/
 
 EXPOSE 80 443
 
@@ -22,6 +22,10 @@ ADD runit/nginx.sh /etc/service/nginx/run
 
 RUN mkdir /etc/service/php5-fpm
 ADD runit/php5-fpm.sh /etc/service/php5-fpm/run
+
+ADD config/nginx.conf /etc/nginx/nginx.conf
+ADD config/nginx-default.conf /etc/nginx/sites-available/default
+ADD config/php.ini /etc/php5/fpm/php.ini
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
