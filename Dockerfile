@@ -6,7 +6,7 @@ ENV HOME /root
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
 
-ONBUILD ADD html /usr/share/nginx/html/
+#ONBUILD ADD ./html /usr/share/nginx/html/
 
 EXPOSE 80 443
 
