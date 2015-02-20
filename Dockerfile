@@ -10,7 +10,7 @@ CMD ["/sbin/my_init"]
 
 EXPOSE 80 443
 
-ADD config/source.new.list /etc/apt/sources.list.d/
+#ADD config/source.new.list /etc/apt/sources.list.d/
 
 RUN apt-get update && apt-get dist-upgrade -y
 
@@ -20,8 +20,9 @@ RUN apt-get update -q
 RUN apt-get install -y nginx nginx-extras
 
 RUN apt-get install -qy php5-fpm php5-mysql php5-curl wget unzip fail2ban \
-                        sendmail iptables-persistent \
-                        curl build-essential ruby ruby-dev \
+                        sendmail iptables-persistent
+
+RUN apt-get install -qy curl build-essential ruby ruby-dev \
                         git logrotate
 
 # disable SSH, because we don't need it
