@@ -1,4 +1,4 @@
-FROM phusion/baseimage:0.9.15
+FROM phusion/baseimage:0.9.18
 
 # Set correct environment variables.
 ENV HOME /root
@@ -20,13 +20,14 @@ RUN apt-get update -q
 RUN apt-get install -y nginx nginx-extras
 
 RUN apt-get install -qy php5-fpm php5-mysql php5-curl wget unzip fail2ban \
-                        sendmail iptables-persistent
-
-RUN apt-get install -qy curl build-essential ruby ruby-dev \
-                        git logrotate
+                        sendmail iptables-persistent curl build-essential ruby \
+                        ruby-dev git logrotate
 
 # disable SSH, because we don't need it
 RUN touch /etc/service/sshd/down
+
+# disable sendmail cron job, because we don't need it
+RUN rm /etc/cron.d/sendmail
 
 RUN mkdir /etc/service/nginx
 ADD runit/nginx.sh /etc/service/nginx/run
